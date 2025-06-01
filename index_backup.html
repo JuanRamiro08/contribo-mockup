@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTRIBO - Stop Browsing. Start Building.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .slide-in { animation: slideIn 0.6s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        .pulse-dot {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #10b981;
+            animation: confetti-fall 3s ease-out forwards;
+        }
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        .success-check {
+            animation: success-check 0.5s ease-out forwards;
+        }
+        @keyframes success-check {
+            0% { transform: scale(0) rotate(45deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(45deg); opacity: 1; }
+            100% { transform: scale(1) rotate(45deg); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900">
+    <!-- Landing Page -->
+    <div id="landing" class="min-h-screen flex flex-col items-center justify-center px-4 fade-in">
+        <div class="max-w-2xl mx-auto text-center">
+            <h1 class="text-4xl font-bold mb-4">CONTRIBO</h1>
+            <p class="text-xl text-gray-600 mb-12">Stop Browsing. Start Building.</p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="showDeveloperFlow()" class="px-8 py-4 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-lg font-medium">
+                    I'm Looking for Opportunities
+                </button>
+                <button onclick="showCompanyFlow()" class="px-8 py-4 border-2 border-black text-black rounded-lg hover:bg-gray-50 transition-colors text-lg font-medium">
+                    I'm Hiring Talent
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Developer Flow - Connect -->
+    <div id="developer-connect" class="min-h-screen flex flex-col items-center justify-center px-4 hidden">
+        <div class="max-w-xl mx-auto text-center slide-in">
+            <h2 class="text-3xl font-bold mb-8">Connect Your Profile. Discover Your Next Role, Instantly.</h2>
+            
+            <button onclick="showGithubAuth()" class="w-full sm:w-auto px-8 py-4 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-lg font-medium mb-4">
+                <svg class="inline-block w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                Connect with GitHub
+            </button>
+            
+            <p class="text-sm text-gray-500 mb-2">or</p>
+            
+            <div class="flex gap-2 justify-center">
+                <button class="text-sm text-gray-600 hover:text-gray-900 underline">LinkedIn</button>
+                <span class="text-gray-400">•</span>
+                <button class="text-sm text-gray-600 hover:text-gray-900 underline">Upload Resume</button>
+            </div>
+            
+            <p class="text-xs text-gray-500 mt-8">Our AI finds the best matches based on your real skills and experience.</p>
+        </div>
+    </div>
+
+    <!-- GitHub Auth Page -->
+    <div id="github-auth" class="min-h-screen flex flex-col items-center justify-center px-4 hidden bg-gray-50">
+        <div class="max-w-md mx-auto w-full">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <div class="text-center mb-6">
+                    <svg class="w-12 h-12 mx-auto mb-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <h2 class="text-2xl font-bold">Sign in to GitHub</h2>
+                    <p class="text-sm text-gray-600 mt-2">to continue to CONTRIBO</p>
+                </div>
+                
+                <form onsubmit="handleGithubLogin(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Username or email address</label>
+                            <input type="text" value="demo@contribo.com" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black" readonly>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <input type="password" id="password" name="password" placeholder="Enter any password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black" required>
+                        </div>
+                        
+                        <button type="submit" class="w-full py-2 px-4 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors font-medium">
+                            Sign in
+                        </button>
+                    </div>
+                </form>
+                
+                <p class="text-xs text-center text-gray-500 mt-6">
+                    By signing in, you agree to authorize CONTRIBO to access your GitHub data for matching purposes.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="min-h-screen flex flex-col items-center justify-center px-4 hidden">
+        <div class="text-center">
+            <div class="relative mb-8">
+                <div class="w-20 h-20 mx-auto bg-black rounded-full flex items-center justify-center">
+                    <div class="w-3 h-3 bg-white rounded-full pulse-dot"></div>
+                </div>
+            </div>
+            <h2 class="text-2xl font-bold mb-2">Finding the right opportunities for you</h2>
+            <p class="text-gray-600">Analyzing your skills and experience...</p>
+        </div>
+    </div>
+
+    <!-- Developer Flow - Matches (Extended) -->
+    <div id="developer-matches" class="min-h-screen flex flex-col px-4 py-8 hidden">
+        <div class="max-w-4xl mx-auto w-full slide-in">
+            <h2 class="text-3xl font-bold mb-8 text-center">Your Top Opportunities are Ready.</h2>
+            
+            <div class="grid gap-4 md:grid-cols-2">
+                <!-- Match Cards -->
+                <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showJobDetail(0)">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">A</div>
+                            <div>
+                                <h3 class="text-lg font-semibold">Senior Solidity Developer</h3>
+                                <p class="text-gray-600">Arbitrum</p>
+                                <div class="mt-2 space-y-1">
+                                    <p class="text-xs text-green-600">✓ Smart Contract Auditing</p>
+                                    <p class="text-xs text-green-600">✓ 3+ Years EVM</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xl font-bold text-green-600">92%</div>
+                            <p class="text-xs text-gray-500">Match</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showJobDetail(1)">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center text-white font-bold">Aa</div>
+                            <div>
+                                <h3 class="text-lg font-semibold">Blockchain Protocol Engineer</h3>
+                                <p class="text-gray-600">Aave</p>
+                                <div class="mt-2 space-y-1">
+                                    <p class="text-xs text-green-600">✓ DeFi Protocol Experience</p>
+                                    <p class="text-xs text-green-600">✓ Rust & Solidity</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xl font-bold text-green-600">88%</div>
+                            <p class="text-xs text-gray-500">Match</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showJobDetail(2)">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center text-white font-bold">Op</div>
+                            <div>
+                                <h3 class="text-lg font-semibold">L2 Infrastructure Developer</h3>
+                                <p class="text-gray-600">Optimism</p>
+                                <div class="mt-2 space-y-1">
+                                    <p class="text-xs text-green-600">✓ L2 Scaling Solutions</p>
+                                    <p class="text-xs text-green-600">✓ Go & Rust</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xl font-bold text-green-600">85%</div>
+                            <p class="text-xs text-gray-500">Match</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showJobDetail(3)">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center text-white font-bold">P</div>
+                            <div>
+                                <h3 class="text-lg font-semibold">DeFi Smart Contract Lead</h3>
+                                <p class="text-gray-600">Polygon</p>
+                                <div class="mt-2 space-y-1">
+                                    <p class="text-xs text-green-600">✓ Team Leadership</p>
+                                    <p class="text-xs text-green-600">✓ Multi-chain Experience</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xl font-bold text-green-600">83%</div>
+                            <p class="text-xs text-gray-500">Match</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showJobDetail(4)">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">C</div>
+                            <div>
+                                <h3 class="text-lg font-semibold">Web3 Security Engineer</h3>
+                                <p class="text-gray-600">Chainlink</p>
+                                <div class="mt-2 space-y-1">
+                                    <p class="text-xs text-green-600">✓ Security Auditing</p>
+                                    <p class="text-xs text-green-600">✓ Oracle Networks</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xl font-bold text-green-600">81%</div>
+                            <p class="text-xs text-gray-500">Match</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow cursor-pointer" onclick="showJobDetail(5)">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center text-white font-bold">U</div>
+                            <div>
+                                <h3 class="text-lg font-semibold">Core Protocol Developer</h3>
+                                <p class="text-gray-600">Uniswap</p>
+                                <div class="mt-2 space-y-1">
+                                    <p class="text-xs text-green-600">✓ AMM Protocols</p>
+                                    <p class="text-xs text-green-600">✓ MEV Protection</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xl font-bold text-green-600">79%</div>
+                            <p class="text-xs text-gray-500">Match</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Job Detail View -->
+    <div id="job-detail" class="min-h-screen flex flex-col px-4 py-8 hidden">
+        <div class="max-w-3xl mx-auto w-full">
+            <button onclick="backToMatches()" class="mb-6 text-gray-600 hover:text-gray-900 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Back to matches
+            </button>
+            
+            <div class="bg-white border border-gray-200 rounded-lg p-8">
+                <div class="flex items-start space-x-4 mb-6">
+                    <div id="company-logo" class="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">A</div>
+                    <div>
+                        <h1 id="job-title" class="text-2xl font-bold">Senior Solidity Developer</h1>
+                        <p id="company-name" class="text-lg text-gray-600">Arbitrum</p>
+                        <div class="flex items-center gap-4 mt-2 text-sm text-gray-500">
+                            <span>📍 Remote</span>
+                            <span>💰 $150k - $200k</span>
+                            <span>⏰ Full-time</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                    <h3 class="font-semibold text-green-800 mb-2">Why you're a great match:</h3>
+                    <ul id="match-reasons" class="space-y-1 text-sm text-green-700">
+                        <li>✓ Your 4 years of Solidity experience exceeds their requirement</li>
+                        <li>✓ You've audited 12 smart contracts similar to their protocol</li>
+                        <li>✓ Your GitHub shows strong L2 optimization work</li>
+                        <li>✓ Your interest in scaling solutions aligns with Arbitrum's mission</li>
+                    </ul>
+                </div>
+                
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="font-semibold text-lg mb-3">About the Role</h3>
+                        <p class="text-gray-700 leading-relaxed">We're looking for a Senior Solidity Developer to join our core protocol team. You'll be working on cutting-edge L2 scaling solutions, optimizing smart contracts for maximum efficiency, and contributing to the security and reliability of our network. This role offers the opportunity to work with a world-class team on technology that's processing billions in transaction volume.</p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold text-lg mb-3">Responsibilities</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Design and implement smart contracts for our L2 protocol</li>
+                            <li>Conduct security reviews and gas optimizations</li>
+                            <li>Collaborate with the research team on new scaling solutions</li>
+                            <li>Contribute to open-source tools and documentation</li>
+                            <li>Mentor junior developers and review code</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold text-lg mb-3">Requirements</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>3+ years of Solidity development experience</li>
+                            <li>Deep understanding of EVM and gas optimization</li>
+                            <li>Experience with L2 solutions and rollup technology</li>
+                            <li>Strong background in security best practices</li>
+                            <li>Excellent communication and collaboration skills</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-8 flex gap-4">
+                    <button onclick="showApplySuccess()" class="flex-1 py-3 px-6 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors font-medium">
+                        Apply Now
+                    </button>
+                    <button class="py-3 px-6 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                        Save for Later
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Apply Success - Micro Celebration -->
+    <div id="apply-success" class="min-h-screen flex flex-col items-center justify-center px-4 hidden relative overflow-hidden">
+        <div class="text-center z-10">
+            <div class="w-24 h-24 mx-auto mb-6 bg-green-100 rounded-full flex items-center justify-center">
+                <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center success-check">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+            </div>
+            
+            <h2 class="text-3xl font-bold mb-4">Application Sent! 🎉</h2>
+            <p class="text-xl text-gray-600 mb-2">You're one step closer to your dream role</p>
+            <p class="text-gray-500 mb-8">Arbitrum will review your profile and reach out soon</p>
+            
+            <div class="bg-gray-50 rounded-lg p-6 mb-8 max-w-md mx-auto">
+                <h3 class="font-semibold mb-3">What happens next?</h3>
+                <div class="space-y-3 text-left text-sm">
+                    <div class="flex items-start gap-3">
+                        <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <span class="text-green-600 text-xs">1</span>
+                        </div>
+                        <p class="text-gray-700">Your profile is being shared with the hiring team</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <span class="text-gray-600 text-xs">2</span>
+                        </div>
+                        <p class="text-gray-700">They'll review your GitHub contributions and experience</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <span class="text-gray-600 text-xs">3</span>
+                        </div>
+                        <p class="text-gray-700">Expect a response within 2-3 business days</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="backToMatches()" class="px-8 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors font-medium">
+                View More Opportunities
+            </button>
+        </div>
+        
+        <!-- Confetti elements -->
+        <div id="confetti-container"></div>
+    </div>
+
+    <!-- Company Flow - Search -->
+    <div id="company-search" class="min-h-screen flex flex-col items-center justify-center px-4 hidden">
+        <div class="max-w-2xl mx-auto w-full text-center slide-in">
+            <h2 class="text-3xl font-bold mb-8">Describe Your Ideal Candidate. Meet Them Instantly.</h2>
+            
+            <textarea 
+                placeholder="Tell us what you're looking for... (e.g., 'Mid-Level Full-Stack Developer with Rust experience for a new L2 project')"
+                class="w-full p-4 border border-gray-300 rounded-lg h-32 text-lg resize-none focus:outline-none focus:ring-2 focus:ring-black"
+            ></textarea>
+            
+            <button onclick="showCompanyMatches()" class="mt-6 px-8 py-4 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-lg font-medium">
+                Find Talent Now
+            </button>
+            
+            <p class="text-sm text-gray-500 mt-4">Or upload job description</p>
+        </div>
+    </div>
+
+    <!-- Company Flow - Candidates -->
+    <div id="company-matches" class="min-h-screen flex flex-col items-center justify-center px-4 hidden">
+        <div class="max-w-3xl mx-auto w-full slide-in">
+            <h2 class="text-3xl font-bold mb-8 text-center">Your Top Candidate Matches.</h2>
+            
+            <div class="space-y-4">
+                <!-- Candidate Card 1 -->
+                <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center text-white font-bold">AN</div>
+                            <div>
+                                <h3 class="text-xl font-semibold">Alexus N.</h3>
+                                <p class="text-gray-600">Senior Full-Stack Developer</p>
+                                <div class="mt-3 space-y-1">
+                                    <p class="text-sm text-green-600">✓ 5+ Years Rust & Go</p>
+                                    <p class="text-sm text-green-600">✓ Proven L2 Contributions (GitHub Verified)</p>
+                                    <p class="text-sm text-green-600">✓ Strong Problem Solver (Psychometric Insight)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-green-600">95%</div>
+                            <p class="text-sm text-gray-500">Match</p>
+                            <button class="mt-3 px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm">
+                                View Full Profile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Candidate Card 2 -->
+                <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center text-white font-bold">MK</div>
+                            <div>
+                                <h3 class="text-xl font-semibold">Dev ID: #12345</h3>
+                                <p class="text-gray-600">Mid-Level Blockchain Developer</p>
+                                <div class="mt-3 space-y-1">
+                                    <p class="text-sm text-green-600">✓ 3+ Years Rust Development</p>
+                                    <p class="text-sm text-green-600">✓ Active L2 Contributor</p>
+                                    <p class="text-sm text-green-600">✓ Strong Technical Writing Skills</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-green-600">87%</div>
+                            <p class="text-sm text-gray-500">Match</p>
+                            <button class="mt-3 px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm">
+                                View Full Profile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Secret Sauce -->
+    <div id="secret-sauce" class="min-h-screen flex flex-col items-center justify-center px-4 hidden">
+        <div class="max-w-4xl mx-auto text-center slide-in">
+            <h2 class="text-3xl font-bold mb-12">How Contribo Delivers: Intelligent Matching at its Core</h2>
+            
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                <!-- Inputs -->
+                <div class="flex-1">
+                    <h3 class="text-lg font-semibold mb-4">Data Sources</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-center space-x-2">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            <span>GitHub</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                            <span>LinkedIn</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            <span>Job Descriptions</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2 text-gray-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            <span class="text-sm">On-chain (Future)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Engine -->
+                <div class="flex-1 relative">
+                    <div class="w-32 h-32 mx-auto bg-gradient-to-br from-gray-900 to-gray-700 rounded-2xl flex items-center justify-center text-white">
+                        <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="mt-4 space-y-1 text-sm text-gray-600">
+                        <p>Deep Skill Analysis</p>
+                        <p>Contextual Understanding</p>
+                        <p>Psychometric Profiling</p>
+                        <p>Reputation Signals</p>
+                    </div>
+                </div>
+
+                <!-- Outputs -->
+                <div class="flex-1">
+                    <h3 class="text-lg font-semibold mb-4">Results</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-center space-x-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A8.002 8.002 0 0012.001 21c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8v.255a1.748 1.748 0 01-1.748 1.745A1.748 1.748 0 0116.5 13.255V13a4.5 4.5 0 10-9 0 4.5 4.5 0 009 0z"></path>
+                            </svg>
+                            <span>Perfect Job Matches</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                            <span>Top Candidates</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2 text-gray-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                            <span class="text-sm">Skill Insights (Future)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex gap-4">
+        <button onclick="goHome()" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors text-sm hidden" id="home-btn">
+            Home
+        </button>
+        <button onclick="showSecretSauce()" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors text-sm hidden" id="sauce-btn">
+            How it Works
+        </button>
+    </div>
+
+    <script>
+        const jobData = [
+            {
+                title: "Senior Solidity Developer",
+                company: "Arbitrum",
+                logo: "A",
+                color: "bg-blue-600",
+                matchReasons: [
+                    "Your 4 years of Solidity experience exceeds their requirement",
+                    "You've audited 12 smart contracts similar to their protocol",
+                    "Your GitHub shows strong L2 optimization work",
+                    "Your interest in scaling solutions aligns with Arbitrum's mission"
+                ]
+            },
+            {
+                title: "Blockchain Protocol Engineer",
+                company: "Aave",
+                logo: "Aa",
+                color: "bg-purple-600",
+                matchReasons: [
+                    "Your DeFi protocol contributions match their needs perfectly",
+                    "Strong Rust and Solidity skills align with their tech stack",
+                    "Your open source work demonstrates collaboration skills",
+                    "Experience with lending protocols is highly relevant"
+                ]
+            },
+            {
+                title: "L2 Infrastructure Developer",
+                company: "Optimism",
+                logo: "Op",
+                color: "bg-orange-600",
+                matchReasons: [
+                    "Your L2 scaling experience is exactly what they're looking for",
+                    "Proficiency in Go and Rust matches their requirements",
+                    "Your performance optimization work aligns with their goals",
+                    "Understanding of rollup technology is a key requirement"
+                ]
+            },
+            {
+                title: "DeFi Smart Contract Lead",
+                company: "Polygon",
+                logo: "P",
+                color: "bg-red-600",
+                matchReasons: [
+                    "Your leadership experience in smart contract teams",
+                    "Multi-chain deployment experience is crucial for this role",
+                    "Your security-first approach matches their values",
+                    "Experience with high-throughput systems is valuable"
+                ]
+            },
+            {
+                title: "Web3 Security Engineer",
+                company: "Chainlink",
+                logo: "C",
+                color: "bg-indigo-600",
+                matchReasons: [
+                    "Your security auditing background is perfect for this role",
+                    "Experience with oracle networks gives you an edge",
+                    "Your bug bounty participation shows proactive security mindset",
+                    "Understanding of cross-chain vulnerabilities is key"
+                ]
+            },
+            {
+                title: "Core Protocol Developer",
+                company: "Uniswap",
+                logo: "U",
+                color: "bg-green-600",
+                matchReasons: [
+                    "Your AMM protocol experience directly applies",
+                    "MEV protection knowledge is crucial for this position",
+                    "Your mathematical background helps with complex algorithms",
+                    "Experience with high-volume trading systems is valuable"
+                ]
+            }
+        ];
+
+        let currentJob = 0;
+
+        function hideAll() {
+            document.querySelectorAll('[id]').forEach(el => {
+                if (el.id !== 'home-btn' && el.id !== 'sauce-btn') {
+                    el.classList.add('hidden');
+                }
+            });
+        }
+
+        function showDeveloperFlow() {
+            hideAll();
+            document.getElementById('developer-connect').classList.remove('hidden');
+            document.getElementById('home-btn').classList.remove('hidden');
+        }
+
+        function showGithubAuth() {
+            hideAll();
+            document.getElementById('github-auth').classList.remove('hidden');
+            document.getElementById('home-btn').classList.remove('hidden');
+        }
+
+        function handleGithubLogin(event) {
+            event.preventDefault();
+            const password = document.getElementById('password').value;
+            if (password) {
+                // Add a slight delay to make it feel more realistic
+                document.querySelector('button[type="submit"]').textContent = 'Signing in...';
+                document.querySelector('button[type="submit"]').disabled = true;
+                setTimeout(() => {
+                    showLoadingScreen();
+                }, 500);
+            }
+            return false;
+        }
+
+        function showLoadingScreen() {
+            hideAll();
+            document.getElementById('loading-screen').classList.remove('hidden');
+            setTimeout(() => {
+                showDeveloperMatches();
+            }, 5000);
+        }
+
+        function showDeveloperMatches() {
+            hideAll();
+            document.getElementById('developer-matches').classList.remove('hidden');
+            document.getElementById('home-btn').classList.remove('hidden');
+            document.getElementById('sauce-btn').classList.remove('hidden');
+        }
+
+        function showJobDetail(index) {
+            currentJob = index;
+            const job = jobData[index];
+            
+            hideAll();
+            document.getElementById('job-detail').classList.remove('hidden');
+            document.getElementById('home-btn').classList.remove('hidden');
+            
+            // Update job details
+            document.getElementById('job-title').textContent = job.title;
+            document.getElementById('company-name').textContent = job.company;
+            document.getElementById('company-logo').textContent = job.logo;
+            document.getElementById('company-logo').className = `w-16 h-16 ${job.color} rounded-lg flex items-center justify-center text-white font-bold text-xl`;
+            
+            // Update match reasons
+            const matchList = document.getElementById('match-reasons');
+            matchList.innerHTML = job.matchReasons.map(reason => `<li>✓ ${reason}</li>`).join('');
+        }
+
+        function backToMatches() {
+            hideAll();
+            document.getElementById('developer-matches').classList.remove('hidden');
+            document.getElementById('home-btn').classList.remove('hidden');
+            document.getElementById('sauce-btn').classList.remove('hidden');
+        }
+
+        function showApplySuccess() {
+            hideAll();
+            document.getElementById('apply-success').classList.remove('hidden');
+            document.getElementById('home-btn').classList.remove('hidden');
+            
+            // Create confetti
+            createConfetti();
+        }
+
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            container.innerHTML = '';
+            
+            const colors = ['#10b981', '#3b82f6', '#8b5cf6', '#ef4444', '#f59e0b'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    container.appendChild(confetti);
+                }, i * 30);
+            }
+        }
+
+        function showCompanyFlow() {
+            hideAll();
+            document.getElementById('company-search').classList.remove('hidden');
+            document.getElementById('home-btn').classList.remove('hidden');
+        }
+
+        function showCompanyMatches() {
+            hideAll();
+            document.getElementById('company-matches').classList.remove('hidden');
+            document.getElementById('home-btn').classList.remove('hidden');
+            document.getElementById('sauce-btn').classList.remove('hidden');
+        }
+
+        function showSecretSauce() {
+            hideAll();
+            document.getElementById('secret-sauce').classList.remove('hidden');
+            document.getElementById('home-btn').classList.remove('hidden');
+        }
+
+        function goHome() {
+            hideAll();
+            document.getElementById('landing').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
