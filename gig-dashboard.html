@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTRIBO - Gig Management Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .slide-in { animation: slideIn 0.6s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        .tab-active {
+            border-bottom: 2px solid #000;
+            color: #000;
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <!-- CONTRIBO Logo Navigation -->
+    <div class="fixed top-4 left-4 z-40">
+        <a href="index.html" class="flex items-center">
+            <img src="images/contribo.png" alt="CONTRIBO" class="h-10 w-auto">
+        </a>
+    </div>
+
+    <!-- Main Container -->
+    <div class="min-h-screen pt-20 px-4 pb-12">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header -->
+            <div class="mb-8 text-center">
+                <h1 class="text-4xl font-bold mb-2">Your Gig Dashboard</h1>
+                <p class="text-gray-600">Manage all your gig proposals and ongoing projects</p>
+            </div>
+
+            <!-- Post New Gig Button -->
+            <div class="flex justify-end mb-6">
+                <button onclick="postNewGig()" class="px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors font-medium flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    Post New Gig
+                </button>
+            </div>
+
+            <!-- Tabs -->
+            <div class="border-b border-gray-200 mb-6">
+                <div class="flex space-x-8">
+                    <button onclick="showTab('active')" class="pb-3 px-1 font-medium text-gray-700 hover:text-black transition-colors tab-active" id="tab-active">
+                        Active (3)
+                    </button>
+                    <button onclick="showTab('pending')" class="pb-3 px-1 font-medium text-gray-500 hover:text-gray-700 transition-colors" id="tab-pending">
+                        Pending (2)
+                    </button>
+                    <button onclick="showTab('completed')" class="pb-3 px-1 font-medium text-gray-500 hover:text-gray-700 transition-colors" id="tab-completed">
+                        Completed (7)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Gigs Table -->
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                <table class="min-w-full">
+                    <thead class="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gig Title</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Candidate</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Budget</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Due Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200" id="gigs-table-body">
+                        <!-- Active Gigs -->
+                        <tr class="hover:bg-gray-50 gig-active">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">Refactor Smart Contract Module</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold mr-3">
+                                        AN
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">Alexus N.</div>
+                                        <div class="text-xs text-gray-500">Senior Developer</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="status-badge bg-blue-100 text-blue-700">In Progress</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$2,500</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 15, 2024</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <button class="text-indigo-600 hover:text-indigo-900 mr-3">Message</button>
+                                <button class="text-gray-600 hover:text-gray-900">View Details</button>
+                            </td>
+                        </tr>
+                        
+                        <tr class="hover:bg-gray-50 gig-active">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">Build GraphQL API Layer</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-gradient-to-br from-green-600 to-teal-600 rounded-full flex items-center justify-center text-white text-xs font-bold mr-3">
+                                        SK
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">Sarah K.</div>
+                                        <div class="text-xs text-gray-500">Infrastructure Engineer</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="status-badge bg-yellow-100 text-yellow-700">Pending Review</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$1,800</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 10, 2024</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <button class="text-green-600 hover:text-green-900 mr-3">Mark Complete</button>
+                                <button class="text-indigo-600 hover:text-indigo-900">Review Work</button>
+                            </td>
+                        </tr>
+
+                        <tr class="hover:bg-gray-50 gig-active">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">Optimize Gas Usage in DEX</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-gradient-to-br from-orange-600 to-red-600 rounded-full flex items-center justify-center text-white text-xs font-bold mr-3">
+                                        MR
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">Marcus R.</div>
+                                        <div class="text-xs text-gray-500">Systems Engineer</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="status-badge bg-green-100 text-green-700">Accepted</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">0.5 ETH</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 20, 2024</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <button class="text-indigo-600 hover:text-indigo-900 mr-3">Message</button>
+                                <button class="text-gray-600 hover:text-gray-900">Track Progress</button>
+                            </td>
+                        </tr>
+
+                        <!-- Pending Gigs -->
+                        <tr class="hover:bg-gray-50 gig-pending hidden">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">Frontend UI/UX Improvements</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold mr-3">
+                                        JL
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">Jamie L.</div>
+                                        <div class="text-xs text-gray-500">Full-Stack Developer</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="status-badge bg-gray-100 text-gray-700">Proposal Sent</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$1,200</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 18, 2024</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <button class="text-indigo-600 hover:text-indigo-900 mr-3">View Proposal</button>
+                                <button class="text-red-600 hover:text-red-900">Cancel</button>
+                            </td>
+                        </tr>
+
+                        <tr class="hover:bg-gray-50 gig-pending hidden">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">Security Audit for Token Contract</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-gradient-to-br from-pink-600 to-rose-600 rounded-full flex items-center justify-center text-white text-xs font-bold mr-3">
+                                        TC
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">Taylor C.</div>
+                                        <div class="text-xs text-gray-500">Protocol Engineer</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="status-badge bg-orange-100 text-orange-700">Declined</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$3,000</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">-</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <button class="text-indigo-600 hover:text-indigo-900 mr-3">View Response</button>
+                                <button class="text-gray-600 hover:text-gray-900">Archive</button>
+                            </td>
+                        </tr>
+
+                        <!-- Completed Gigs -->
+                        <tr class="hover:bg-gray-50 gig-completed hidden">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">L2 Bridge Implementation</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold mr-3">
+                                        AN
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">Alexus N.</div>
+                                        <div class="text-xs text-gray-500">Senior Developer</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="status-badge bg-green-100 text-green-700">Payment Processed</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$5,000</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Nov 25, 2024</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <button class="text-indigo-600 hover:text-indigo-900 mr-3">Leave Feedback</button>
+                                <button class="text-gray-600 hover:text-gray-900">View Invoice</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Summary Stats -->
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                    <h3 class="text-sm font-medium text-gray-500">Total Gigs Posted</h3>
+                    <p class="text-2xl font-bold text-gray-900 mt-2">12</p>
+                    <p class="text-xs text-gray-500 mt-1">+3 this month</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                    <h3 class="text-sm font-medium text-gray-500">Total Spent</h3>
+                    <p class="text-2xl font-bold text-gray-900 mt-2">$28,500</p>
+                    <p class="text-xs text-gray-500 mt-1">Across all gigs</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                    <h3 class="text-sm font-medium text-gray-500">Success Rate</h3>
+                    <p class="text-2xl font-bold text-gray-900 mt-2">92%</p>
+                    <p class="text-xs text-gray-500 mt-1">11 of 12 completed</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                    <h3 class="text-sm font-medium text-gray-500">Avg Response Time</h3>
+                    <p class="text-2xl font-bold text-gray-900 mt-2">4.2 hrs</p>
+                    <p class="text-xs text-gray-500 mt-1">From developers</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tab) {
+            // Update tab styles
+            document.querySelectorAll('[id^="tab-"]').forEach(t => {
+                t.classList.remove('tab-active', 'text-gray-700');
+                t.classList.add('text-gray-500');
+            });
+            document.getElementById(`tab-${tab}`).classList.add('tab-active', 'text-gray-700');
+            document.getElementById(`tab-${tab}`).classList.remove('text-gray-500');
+            
+            // Show/hide gigs
+            document.querySelectorAll('[class*="gig-"]').forEach(gig => {
+                gig.classList.add('hidden');
+            });
+            document.querySelectorAll(`.gig-${tab}`).forEach(gig => {
+                gig.classList.remove('hidden');
+            });
+        }
+
+        function postNewGig() {
+            alert('Post new gig functionality would open a form to create a new gig proposal');
+        }
+    </script>
+</body>
+</html>

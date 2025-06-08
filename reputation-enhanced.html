@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Contribo Profile & Reputation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .slide-in { animation: slideIn 0.6s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        .pulse-glow {
+            animation: pulseGlow 2s infinite;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(79, 70, 229, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+        }
+        .contribution-bar {
+            transition: width 1s ease-out;
+        }
+        .verified-badge {
+            background: linear-gradient(45deg, #4F46E5, #7C3AED);
+        }
+        .connect-button {
+            transition: all 0.3s ease;
+        }
+        .connect-button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <!-- CONTRIBO Logo Navigation -->
+    <div class="fixed top-4 left-4 z-40">
+        <a href="index.html" class="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+            <img src="images/contribo.png" alt="CONTRIBO" class="h-10 w-auto">
+            <span class="text-sm text-gray-600">← Back to Dashboard</span>
+        </a>
+    </div>
+
+    <!-- Main Container -->
+    <div class="min-h-screen">
+        <!-- Hero Section -->
+        <section class="pt-24 pb-12 px-6 bg-gradient-to-b from-white to-gray-50">
+            <div class="max-w-6xl mx-auto text-center">
+                <h1 class="text-5xl font-bold text-gray-900 mb-4 fade-in">
+                    Your Contribo Profile & Reputation
+                </h1>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto fade-in">
+                    Build your comprehensive Web3 reputation by connecting all your contributions and achievements
+                </p>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <section class="px-6 pb-12">
+            <div class="max-w-6xl mx-auto">
+                <!-- Section 1: Contribo Score & Activity -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 mb-8 fade-in">
+                    <h2 class="text-2xl font-bold mb-6">Contribo Score & Activity</h2>
+                    
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <!-- Total Score -->
+                        <div class="text-center">
+                            <div class="relative inline-block">
+                                <div class="w-48 h-48 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center pulse-glow">
+                                    <div class="bg-white w-44 h-44 rounded-full flex items-center justify-center">
+                                        <div>
+                                            <div class="text-5xl font-bold text-gray-900">847</div>
+                                            <div class="text-sm text-gray-600 mt-1">Contribo Points</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex items-center justify-center space-x-2">
+                                <span class="verified-badge text-white text-xs px-3 py-1 rounded-full">
+                                    ✓ Blockchain Verified
+                                </span>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-2">Top 15% of Developers</p>
+                        </div>
+
+                        <!-- Recent Activity -->
+                        <div class="md:col-span-2">
+                            <h3 class="text-lg font-semibold mb-4">Recent Point-Earning Activities</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium">Completed 'Advanced TypeScript for Web3'</p>
+                                            <p class="text-xs text-gray-500">2 days ago</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-green-600 font-semibold">+50 Points</span>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium">Received 5-Star Gig Feedback</p>
+                                            <p class="text-xs text-gray-500">1 week ago</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-blue-600 font-semibold">+100 Points</span>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium">Community Member Staked on You</p>
+                                            <p class="text-xs text-gray-500">2 weeks ago</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-purple-600 font-semibold">+75 Points</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Badges -->
+                            <div class="mt-6">
+                                <h4 class="font-semibold mb-3">Earned Badges</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-gradient-to-r from-yellow-400 to-orange-400 text-white rounded-full text-sm font-medium">
+                                        🏆 Top TypeScript Contributor
+                                    </span>
+                                    <span class="px-3 py-1 bg-gradient-to-r from-green-400 to-teal-400 text-white rounded-full text-sm font-medium">
+                                        ✨ 5 Gigs Completed
+                                    </span>
+                                    <span class="px-3 py-1 bg-gradient-to-r from-blue-400 to-indigo-400 text-white rounded-full text-sm font-medium">
+                                        🚀 Fast Learner
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: External Reputation Showcase -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 mb-8 fade-in">
+                    <h2 class="text-2xl font-bold mb-2">Connected Reputation Sources</h2>
+                    <p class="text-gray-600 mb-6">Your Web3 Passport - Connect more accounts to enhance your Contribo profile</p>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <!-- GitHub -->
+                        <div class="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                                <span class="text-green-600 text-sm font-medium">Connected</span>
+                            </div>
+                            <h3 class="font-semibold mb-2">GitHub Passport</h3>
+                            <div class="space-y-1 text-sm text-gray-600">
+                                <p>✓ Verified Contributor</p>
+                                <p>📊 2.3k Stars Earned</p>
+                                <p>🔗 156 PRs Merged</p>
+                            </div>
+                        </div>
+
+                        <!-- Talent Protocol -->
+                        <div class="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
+                                <span class="text-green-600 text-sm font-medium">Connected</span>
+                            </div>
+                            <h3 class="font-semibold mb-2">Talent Protocol</h3>
+                            <div class="space-y-1 text-sm text-gray-600">
+                                <p>💰 $TAL Staked: 500</p>
+                                <p>📈 Builder Score: 89/100</p>
+                                <p>🤝 12 Endorsements</p>
+                            </div>
+                        </div>
+
+                        <!-- Karma -->
+                        <div class="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"></div>
+                                <button class="px-3 py-1 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition-colors connect-button">
+                                    Connect
+                                </button>
+                            </div>
+                            <h3 class="font-semibold mb-2">Karma</h3>
+                            <div class="space-y-1 text-sm text-gray-400">
+                                <p>• DAO Contributions</p>
+                                <p>• Governance Participation</p>
+                                <p>• Community Impact</p>
+                            </div>
+                        </div>
+
+                        <!-- Coordinape -->
+                        <div class="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"></div>
+                                <span class="text-green-600 text-sm font-medium">Connected</span>
+                            </div>
+                            <h3 class="font-semibold mb-2">Coordinape</h3>
+                            <div class="space-y-1 text-sm text-gray-600">
+                                <p>🎁 Epoch 5: 1200 GIVE</p>
+                                <p>👥 3 Circles Active</p>
+                                <p>⭐ Top 10% Contributor</p>
+                            </div>
+                        </div>
+
+                        <!-- Gitcoin Passport -->
+                        <div class="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-teal-500 rounded-full"></div>
+                                <span class="text-green-600 text-sm font-medium">Connected</span>
+                            </div>
+                            <h3 class="font-semibold mb-2">Gitcoin Passport</h3>
+                            <div class="space-y-1 text-sm text-gray-600">
+                                <p>📊 Score: 21.5</p>
+                                <p>✓ Humanity Verified</p>
+                                <p>🎯 15 Stamps Active</p>
+                            </div>
+                        </div>
+
+                        <!-- KarmaHQ -->
+                        <div class="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
+                                <span class="text-green-600 text-sm font-medium">Connected</span>
+                            </div>
+                            <h3 class="font-semibold mb-2">KarmaHQ</h3>
+                            <div class="space-y-1 text-sm text-gray-600">
+                                <p>📊 Karma Score: 850</p>
+                                <p>🏛️ 5 DAOs Active</p>
+                                <p>🗳️ 127 Votes Cast</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 text-center">
+                        <p class="text-sm text-gray-500">
+                            💡 Connect more accounts to unlock better job matches and increase your Contribo Score
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Section 3: Talent Staking -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 fade-in">
+                    <h2 class="text-2xl font-bold mb-2">Community Vouched / Staked By Talent</h2>
+                    <p class="text-gray-600 mb-6">Community members who believe in your skills and have staked their reputation on you</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Staker 1 -->
+                        <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
+                            <div class="w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                                MK
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold">Michael K.</h4>
+                                <p class="text-sm text-gray-600">Senior Protocol Engineer at Arbitrum</p>
+                                <p class="text-sm text-indigo-600 mt-1">Staked 150 Contribo Points on your Rust Skills</p>
+                                <p class="text-xs text-gray-500 mt-1">"Worked with them on L2 optimizations. Exceptional problem solver."</p>
+                            </div>
+                        </div>
+
+                        <!-- Staker 2 -->
+                        <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
+                            <div class="w-12 h-12 bg-gradient-to-br from-green-600 to-teal-600 rounded-full flex items-center justify-center text-white font-bold">
+                                SL
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold">Sarah L.</h4>
+                                <p class="text-sm text-gray-600">CTO at DeFi Startup</p>
+                                <p class="text-sm text-indigo-600 mt-1">Staked 200 Contribo Points on your Overall Reliability</p>
+                                <p class="text-xs text-gray-500 mt-1">"Delivered critical smart contracts on time. Highly recommend."</p>
+                            </div>
+                        </div>
+
+                        <!-- Staker 3 -->
+                        <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
+                            <div class="w-12 h-12 bg-gradient-to-br from-orange-600 to-red-600 rounded-full flex items-center justify-center text-white font-bold">
+                                AJ
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold">Alex J.</h4>
+                                <p class="text-sm text-gray-600">Open Source Contributor</p>
+                                <p class="text-sm text-indigo-600 mt-1">Staked 100 Contribo Points on your TypeScript Expertise</p>
+                                <p class="text-xs text-gray-500 mt-1">"Great code reviews and mentorship. A true team player."</p>
+                            </div>
+                        </div>
+
+                        <!-- Summary Stats -->
+                        <div class="p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+                            <h4 class="font-semibold text-indigo-900 mb-3">Staking Summary</h4>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-indigo-700">Total Staked Value:</span>
+                                    <span class="font-semibold text-indigo-900">450 Contribo Points</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-indigo-700">Number of Vouchers:</span>
+                                    <span class="font-semibold text-indigo-900">3 Professionals</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-indigo-700">Trust Score Boost:</span>
+                                    <span class="font-semibold text-green-600">+15%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 text-center">
+                        <button class="px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors font-medium">
+                            Share Your Profile to Get More Stakes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Add interactivity for connect buttons
+        document.querySelectorAll('.connect-button').forEach(button => {
+            button.addEventListener('click', function() {
+                this.textContent = 'Connecting...';
+                this.disabled = true;
+                
+                setTimeout(() => {
+                    this.textContent = 'Connected';
+                    this.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+                    this.classList.add('bg-green-600', 'text-white', 'cursor-default');
+                    
+                    // Update the parent card
+                    const card = this.closest('.border');
+                    const grayTexts = card.querySelectorAll('.text-gray-400');
+                    grayTexts.forEach(text => {
+                        text.classList.remove('text-gray-400');
+                        text.classList.add('text-gray-600');
+                    });
+                }, 1500);
+            });
+        });
+
+        // Animate contribution bars on page load
+        window.addEventListener('load', () => {
+            const bars = document.querySelectorAll('.contribution-bar');
+            bars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
