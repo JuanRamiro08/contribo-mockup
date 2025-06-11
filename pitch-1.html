@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTRIBO - The Problem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #f8f8f8;
+        }
+        .metric-circle {
+            width: 200px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            position: relative;
+        }
+        .metric-circle.primary {
+            background: #e5e5e5;
+        }
+        .metric-circle.dark {
+            background: #666;
+            color: white;
+        }
+        .metric-value {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        .metric-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.8;
+        }
+        .connector-line {
+            position: absolute;
+            height: 2px;
+            background: #ddd;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        @media (max-width: 768px) {
+            .metric-circle {
+                width: 150px;
+                height: 150px;
+            }
+            .metric-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Global Reputation Button -->
+    <div class="fixed top-4 right-4 z-40">
+        <a href="reputation.html" class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors text-sm font-medium flex items-center gap-2">
+            <span>🏆</span>
+            <span>Reputation</span>
+        </a>
+    </div>
+
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <div class="px-8 py-6">
+            <a href="index.html" class="inline-block hover:opacity-80 transition-opacity">
+                <img src="images/contribo.png" alt="CONTRIBO" class="h-10 w-auto">
+            </a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex items-center justify-center px-8 pb-20">
+            <div class="max-w-6xl w-full">
+                <!-- Metrics Section -->
+                <div class="relative flex items-center justify-center mb-16">
+                    <!-- TAM Circle -->
+                    <div class="metric-circle primary">
+                        <div class="metric-value">$30B</div>
+                        <div class="metric-label">TAM</div>
+                    </div>
+
+                    <!-- Connector Line 1 -->
+                    <div class="connector-line" style="width: 80px; left: 180px;"></div>
+
+                    <!-- Average Cost Circle -->
+                    <div class="metric-circle dark" style="margin: 0 60px;">
+                        <div class="metric-value">$30k</div>
+                        <div class="metric-label">Avg. Hire Cost</div>
+                    </div>
+
+                    <!-- Connector Line 2 -->
+                    <div class="connector-line" style="width: 80px; right: 180px;"></div>
+
+                    <!-- Time Circle -->
+                    <div class="metric-circle primary">
+                        <div class="metric-value">88%</div>
+                        <div class="metric-label">Unfilled Roles</div>
+                    </div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="text-center max-w-3xl mx-auto">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+                        Web3 hiring is fundamentally broken.
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-4">
+                        3-6 month hiring cycles. 88% of roles unfilled after 60 days.
+                    </p>
+                    <p class="text-xl text-gray-600">
+                        Only 1 in 5 "Web3 developers" have actually shipped audited smart contracts.
+                    </p>
+                </div>
+
+                <!-- Bottom Section -->
+                <div class="mt-16 text-center">
+                    <p class="text-gray-500 mb-8">The current process wastes time, money, and opportunity.</p>
+                    
+                    <!-- Navigation -->
+                    <a href="pitch-2.html" class="inline-flex items-center space-x-3 px-8 py-4 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all font-medium">
+                        <span>See Our Solution</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

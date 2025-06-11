@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTRIBO - The Solution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #f8f8f8;
+        }
+        .metric-circle {
+            width: 200px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            position: relative;
+        }
+        .metric-circle.primary {
+            background: #e5e5e5;
+        }
+        .metric-circle.accent {
+            background: #4F46E5;
+            color: white;
+        }
+        .metric-value {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        .metric-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.8;
+        }
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+        .video-background.fade-in {
+            opacity: 0.3;
+        }
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        @media (max-width: 768px) {
+            .metric-circle {
+                width: 150px;
+                height: 150px;
+            }
+            .metric-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-background" id="videoBackground">
+        <video id="bgVideo" muted loop>
+            <source src="9f8ac466-9223-49a8-90f6-bd5d908dee9e.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Global Reputation Button -->
+    <div class="fixed top-4 right-4 z-40">
+        <a href="reputation.html" class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors text-sm font-medium flex items-center gap-2">
+            <span>🏆</span>
+            <span>Reputation</span>
+        </a>
+    </div>
+
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <div class="px-8 py-6">
+            <a href="index.html" class="inline-block hover:opacity-80 transition-opacity">
+                <img src="images/contribo.png" alt="CONTRIBO" class="h-10 w-auto">
+            </a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex items-center justify-center px-8 pb-20">
+            <div class="max-w-6xl w-full">
+                <!-- Top Text -->
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+                        From Months to Moments
+                    </h1>
+                    <p class="text-xl text-gray-600">
+                        CONTRIBO transforms Web3 hiring into an efficient marketplace
+                    </p>
+                </div>
+
+                <!-- Growth Chart Section -->
+                <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                    <!-- Left: Chart -->
+                    <div class="bg-white rounded-lg p-8 shadow-sm">
+                        <h3 class="text-sm font-semibold text-gray-600 mb-4">MARKET GROWTH</h3>
+                        <div style="position: relative; height: 250px;">
+                            <canvas id="growthChart"></canvas>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-4">
+                            Blockchain market projected to reach $1.4T by 2030
+                        </p>
+                    </div>
+
+                    <!-- Right: Metrics -->
+                    <div class="flex flex-col items-center justify-center space-y-8">
+                        <!-- Current TAM -->
+                        <div class="metric-circle primary">
+                            <div class="metric-value">$750M</div>
+                            <div class="metric-label">Current TAM</div>
+                        </div>
+
+                        <!-- Arrow Down -->
+                        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                        </svg>
+
+                        <!-- Future TAM -->
+                        <div class="metric-circle accent">
+                            <div class="metric-value">$3B+</div>
+                            <div class="metric-label">2030 TAM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Solution Points -->
+                <div class="bg-white rounded-lg p-8 shadow-sm">
+                    <h3 class="text-2xl font-bold mb-6 text-center">Our Solution</h3>
+                    <div class="grid md:grid-cols-3 gap-6 text-center">
+                        <div>
+                            <div class="text-3xl mb-2">⚡</div>
+                            <h4 class="font-semibold mb-1">Instant Matching</h4>
+                            <p class="text-sm text-gray-600">GitHub to shortlist in seconds</p>
+                        </div>
+                        <div>
+                            <div class="text-3xl mb-2">🔍</div>
+                            <h4 class="font-semibold mb-1">Evidence-Based</h4>
+                            <p class="text-sm text-gray-600">Real code analysis, not keywords</p>
+                        </div>
+                        <div>
+                            <div class="text-3xl mb-2">🏆</div>
+                            <h4 class="font-semibold mb-1">Progressive Trust</h4>
+                            <p class="text-sm text-gray-600">Paid gigs that de-risk hires</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="mt-12 text-center">
+                    <a href="index.html" class="inline-flex items-center space-x-3 px-8 py-4 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all font-medium">
+                        <span>See How It Works</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Video fade in effect
+        const videoBackground = document.getElementById('videoBackground');
+        const bgVideo = document.getElementById('bgVideo');
+        
+        // Start video playback when page loads
+        window.addEventListener('load', () => {
+            bgVideo.play();
+            setTimeout(() => {
+                videoBackground.classList.add('fade-in');
+            }, 500);
+        });
+
+        // Create growth chart
+        const ctx = document.getElementById('growthChart').getContext('2d');
+        const growthChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+                datasets: [{
+                    label: 'Market Size ($B)',
+                    data: [31, 85, 235, 450, 720, 1050, 1430],
+                    borderColor: '#4F46E5',
+                    backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#4F46E5',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        top: 10,
+                        bottom: 10
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return '$' + context.parsed.y + 'B';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                if (value >= 1000) {
+                                    return '$' + (value / 1000).toFixed(1) + 'T';
+                                }
+                                return '$' + value + 'B';
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
